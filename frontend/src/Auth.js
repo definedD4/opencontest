@@ -42,3 +42,15 @@ function user() {
 function err() {
   return state.err;
 }
+
+function fetchCurrentState() {
+  return api.user.current()
+    .then(user => ({ user: user, err: null }))
+    .catch(err => ({ user: null, err: err }))
+    .then(newState => {
+      state = newState;
+      return newState;
+    });
+}
+
+fetchCurrentState();

@@ -5,7 +5,7 @@ import { ListGroup, ListGroupItem } from 'react-bootstrap';
 import api from '../api';
 
 const ContestListItem = ({ contest }) => (
-  <ListGroupItem key={contest.id}>
+  <ListGroupItem>
     <Link to={`/contest/${contest.id}`}>{contest.name}</Link>
   </ListGroupItem>
 )
@@ -29,7 +29,7 @@ export default class ContestList extends Component {
 
     return (
       <ListGroup>
-        {contests.map(contest => <ContestListItem contest={contest}/>)}
+        {contests.map(contest => <ContestListItem key={contest.id} contest={contest}/>)}
       </ListGroup>
     );
   }
