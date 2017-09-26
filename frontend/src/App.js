@@ -6,6 +6,7 @@ import { BrowserRouter, Route, Link, Redirect } from 'react-router-dom';
 
 import { user } from './auth.js';
 import Login from './containers/auth/Login';
+import ContestList from './containers/ContestList';
 
 class App extends Component {
   render() {
@@ -20,6 +21,10 @@ class App extends Component {
     const PrivateSection = (props) => (
       <div>
         <Navbar/>
+        <div style={{ maxWidth: '1000px', margin: 'auto', display: 'block' }}>
+          <h4>Pick one of the contests below to start participating.</h4>
+          <ContestList/>
+        </div>
       </div>
     );
 

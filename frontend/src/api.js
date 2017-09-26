@@ -45,5 +45,29 @@ module.exports = {
           }
         });
     }
+  },
+  contest: {
+    all: function() {
+      return fetch("/contest/")
+        .then(res => res.json())
+        .then(res => {
+          if(res.status === "ok") {
+            return res.contests;
+          } else {
+            throw res.err;
+          }
+        });
+    }, 
+    byId: function(id) {
+      return fetch(`/contest/${id}`)
+        .then(res => res.json())
+        .then(res => {
+          if(res.status === "ok") {
+            return res.contest;
+          } else {
+            throw res.err;
+          }
+        });
+    }
   }
 }

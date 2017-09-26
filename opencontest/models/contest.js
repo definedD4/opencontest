@@ -6,7 +6,7 @@ module.exports = (sequelize, DataTypes) => {
     endDate: DataTypes.DATE
   });
   Contest.associate = function(models) {
-    
+    Contest.hasMany(models.Task);
   };
   return Contest;
 };

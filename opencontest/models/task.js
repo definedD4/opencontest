@@ -1,9 +1,10 @@
 'use strict';
 module.exports = (sequelize, DataTypes) => {
   var Task = sequelize.define('Task', {
+    name: DataTypes.STRING
   });
   Task.associate = function(models) {
-    Task.hasOne(models.Contest);
+    Task.belongsTo(models.Contest);
   };
   return Task;
 };

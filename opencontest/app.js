@@ -7,6 +7,7 @@ var bodyParser = require('body-parser');
 var session = require('express-session');
 
 var user = require('./routes/user');
+var contest = require('./routes/contest');
 var solution = require('./routes/solution');
 
 var app = express();
@@ -28,6 +29,7 @@ app.use(session({
 app.use(express.static(path.join(__dirname, 'public')));
 
 app.use('/user', user);
+app.use('/contest', contest);
 app.use('/solution', solution);
 
 module.exports = app;
