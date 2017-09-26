@@ -1,10 +1,11 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import Auth from './Auth'
-import LoginForm from './LoginForm';
 import Navbar from './Navbar';
-import { Button, PageHeader } from 'react-bootstrap';
+import { PageHeader } from 'react-bootstrap';
 import { BrowserRouter, Route, Link, Redirect } from 'react-router-dom';
+
+import { user } from './auth.js';
+import Login from './containers/auth/Login';
 
 class App extends Component {
   render() {
@@ -12,7 +13,7 @@ class App extends Component {
       <div>
         <PageHeader className="text-center">Welcome!</PageHeader>
         <h4 className="text-center">Please sign in below or <Link to="/register">register</Link> to continue.</h4>
-        <LoginForm/>
+        <Login/>
       </div>
     );
 
@@ -23,14 +24,12 @@ class App extends Component {
     );
 
     return (
-      <Auth>
-        <BrowserRouter>
-          <div>
-            <Route path="/login" component={LoginSection}/>
-            <PrivateRoute path="/" component={PrivateSection}/>
-          </div>
-        </BrowserRouter>
-      </Auth>
+      <BrowserRouter>
+        <div>
+          <Route path="/login" component={LoginSection}/>
+          <PrivateRoute path="/" exact component={PrivateSection}/>
+        </div>
+      </BrowserRouter>
     );
   }
 }
@@ -39,7 +38,7 @@ export default App;
 
 const PrivateRoute = ({ component: Component, ...rest }, context) => (
   <Route {...rest} render={props => (
-    context.auth.user ? (
+    user() ? (
       <Component {...props}/>
     ) : (
       <Redirect to={{
@@ -49,7 +48,3 @@ const PrivateRoute = ({ component: Component, ...rest }, context) => (
     )
   )}/>
 );
-
-PrivateRoute.contextTypes = {
-  auth: PropTypes.object.isRequired
-};

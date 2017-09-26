@@ -1,28 +1,17 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { Panel, Form, FormGroup, Col, ControlLabel, FormControl, Button } from 'react-bootstrap';
-import { Redirect } from 'react-router-dom';
 import _ from 'lodash';
 
-export default class LoginForm extends React.Component {
+export default class LoginForm extends Component {
   constructor() {
     super();
     this.state = {
       formId: _.uniqueId("loginForm"),
       email: "",
       password: "",
-      err: null,
     }
   }
-
-  getValidationState() {
-    if(this.context.auth.err) {
-      return 'error';
-    } else {
-      return 'success';
-    }
-  }
-
   setEmail(email) {
     this.setState({ email: email });
   }
@@ -31,18 +20,20 @@ export default class LoginForm extends React.Component {
     this.setState({ password: password });
   }
 
-  onLogin() {
-    this.context.auth.login(this.state.email, this.state.password);
+  onSubmit() {
+    const { email, password } = this.state;
+    this.props.onSubmit({ email, password });
   }
 
   render() {
     const { formId, email, password } = this.state;
+    const { err } = this.props;
+    const validationState = err ? 'error' : null;
 
     return (
-      this.context.auth.user ? (<Redirect to="/"/>) :
-      (<Panel style={{ width: '500px', margin: 'auto', marginTop: '10px', display: 'block' }}>
+      <Panel style={{ width: '500px', margin: 'auto', marginTop: '10px', display: 'block' }}>
         <Form horizontal>
-          <FormGroup controlId={formId + "_email"}>
+          <FormGroup controlId={formId + "_email"} validationState={validationState}>
             <Col componentClass={ControlLabel} sm={2}>
               Email
             </Col>
@@ -51,7 +42,7 @@ export default class LoginForm extends React.Component {
             </Col>
           </FormGroup>
 
-          <FormGroup controlId={formId + "_password"}>
+          <FormGroup controlId={formId + "_password"} validationState={validationState}>
             <Col componentClass={ControlLabel} sm={2}>
               Password
             </Col>
@@ -62,17 +53,18 @@ export default class LoginForm extends React.Component {
 
           <FormGroup>
             <Col smOffset={2} sm={10}>
-              <Button onClick={() => this.onLogin()}>
+              <Button onClick={() => this.onSubmit()}>
                 Sign in
               </Button>
             </Col>
           </FormGroup>
         </Form>
-      </Panel>)
+      </Panel>
     );
   }
 }
 
-LoginForm.contextTypes = {
-  auth: PropTypes.object.isRequired
+LoginForm.propTypes = {
+  err: PropTypes.any,
+  onSubmit: PropTypes.func.isRequired,
 };

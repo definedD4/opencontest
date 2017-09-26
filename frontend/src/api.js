@@ -14,7 +14,7 @@ module.exports = {
       })
         .then(res => res.json())
         .then(res => {
-          if (res.status != "ok") {
+          if (res.status !== "ok") {
             throw new Error(res.reason);
           }
         });
