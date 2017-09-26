@@ -23,4 +23,26 @@ router.post('/login', function(req, res) {
   }
 });
 
+router.get('/current', function(req, res) {
+  console.log(req.session)
+  if(!req.session.userId) {
+    res.json({ status: "err", reason: "session" });
+    return;
+  }
+
+  models.User.findById(req.session.userId,
+  {
+    attributes: ["email", "displayName"]
+  })
+    .then(user => {
+      res.json({ status: "ok", user: user });
+    })
+    .catch(err => res.json({ status: "err", reason: "db", err: err }));
+});
+
+router.post("/logout", function(req, res) {
+  req.session.userId = undefined;
+  res.json({ status: "ok" });
+})
+
 module.exports = router;
