@@ -5,6 +5,7 @@ import LoadingIndicator from 'react-loading-indicator';
 import api from '../../api';
 import Navbar from '../../Navbar';
 import TaskSelectPanel from './TaskSelectPanel';
+import TaskWorkspace from './TaskWorkspace';
 
 const Loading = () => (
   <div style={{ width: '400px', margin: 'auto', marginTop: '400px' }}>
@@ -44,6 +45,7 @@ export default class Workspace extends Component {
           selectedId={selectedTask.id}
           onSelect={selectedTask => this.setState({ selectedTask })}
         />
+        <TaskWorkspace taskId={selectedTask.id}/>
       </div>
     );
   }

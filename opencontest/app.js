@@ -29,9 +29,9 @@ app.use(session({
 
 app.use(express.static(path.join(__dirname, 'public')));
 
-app.use('/user', user);
-app.use('/contest', contest);
-app.use('/solution', solution);
-app.use('/task', task);
+app.use('/api/user', user);
+app.use('/api/contest', contest);
+app.use('/api/solution', solution);
+app.use('/api/task', task);
 
 module.exports = app;

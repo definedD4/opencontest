@@ -1,7 +1,7 @@
 module.exports = {
   user: {
     login: function (email, password) {
-      return fetch("/user/login", {
+      return fetch("/api/user/login", {
         method: "POST",
         body: JSON.stringify({
           email: email,
@@ -20,7 +20,7 @@ module.exports = {
         });
     },
     current: function () {
-      return fetch("/user/current", {
+      return fetch("/api/user/current", {
         method: "GET",
         credentials: "same-origin"
       })
@@ -48,7 +48,7 @@ module.exports = {
   },
   contest: {
     all: function() {
-      return fetch("/contest/")
+      return fetch("/api/contest/")
         .then(res => res.json())
         .then(res => {
           if(res.status === "ok") {
@@ -59,7 +59,7 @@ module.exports = {
         });
     }, 
     byId: function(id) {
-      return fetch(`/contest/${id}`)
+      return fetch(`/api/contest/${id}`)
         .then(res => res.json())
         .then(res => {
           if(res.status === "ok") {
