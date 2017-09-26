@@ -1,29 +1,55 @@
 import React, { Component } from 'react';
-import Auth from './Auth'
 import PropTypes from 'prop-types';
-import { Button } from 'react-bootstrap';
+import Auth from './Auth'
+import LoginForm from './LoginForm';
+import Navbar from './Navbar';
+import { Button, PageHeader } from 'react-bootstrap';
+import { BrowserRouter, Route, Link, Redirect } from 'react-router-dom';
 
 class App extends Component {
   render() {
-    const User = (props, context) => (
+    const LoginSection = (props) => (
       <div>
-        <p>{context.auth.user}</p>
-        <p>{context.auth.err ? context.auth.err.stack : ""}</p>
-        <Button onClick={() => context.auth.login("maretskii@gmail.com", "123")}>Login</Button>
-        <Button onClick={() => context.auth.logout()}>Logout</Button>
+        <PageHeader className="text-center">Welcome!</PageHeader>
+        <h4 className="text-center">Please sign in below or <Link to="/register">register</Link> to continue.</h4>
+        <LoginForm/>
       </div>
     );
 
-    User.contextTypes = {
-      auth: PropTypes.object.isRequired
-    }
+    const PrivateSection = (props) => (
+      <div>
+        <Navbar/>
+      </div>
+    );
 
     return (
       <Auth>
-        <User/>
+        <BrowserRouter>
+          <div>
+            <Route path="/login" component={LoginSection}/>
+            <PrivateRoute path="/" component={PrivateSection}/>
+          </div>
+        </BrowserRouter>
       </Auth>
     );
   }
 }
 
 export default App;
+
+const PrivateRoute = ({ component: Component, ...rest }, context) => (
+  <Route {...rest} render={props => (
+    context.auth.user ? (
+      <Component {...props}/>
+    ) : (
+      <Redirect to={{
+        pathname: '/login',
+        state: { from: props.location }
+      }}/>
+    )
+  )}/>
+);
+
+PrivateRoute.contextTypes = {
+  auth: PropTypes.object.isRequired
+};

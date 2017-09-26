@@ -10,17 +10,19 @@ module.exports = {
         headers: {
           "Content-Type": "application/json"
         },
+        credentials: "same-origin"
       })
         .then(res => res.json())
         .then(res => {
-          if (res.status !== "ok") {
+          if (res.status != "ok") {
             throw new Error(res.reason);
           }
         });
     },
     current: function () {
       return fetch("/user/current", {
-        method: "GET"
+        method: "GET",
+        credentials: "same-origin"
       })
         .then(res => res.json())
         .then(res => {
@@ -33,7 +35,8 @@ module.exports = {
     },
     logout: function () {
       return fetch("/user/logout", {
-        method: "POST"
+        method: "POST",
+        credentials: "same-origin"
       })
         .then(res => res.json())
         .then(res => {

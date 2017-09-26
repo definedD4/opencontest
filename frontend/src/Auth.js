@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import api from './api';
 import PropTypes from 'prop-types';
+import { Route, Redirect } from 'react-router-dom';
 
 class Auth extends Component {
   constructor() {
@@ -17,8 +18,12 @@ class Auth extends Component {
   login(email, password) {
     api.user.login(email, password)
       .then(res => {
-        console.log("Success");
-        return api.user.current();
+        console.log(res);
+        try {
+          return api.user.current();
+        } catch(err) {
+          console.log(err);
+        }
       })
       .then(user => ({ user: user, err: null }))
       .catch(err => ({ user: null, err: err }))

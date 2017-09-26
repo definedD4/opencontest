@@ -9,17 +9,19 @@ router.post('/login', function(req, res) {
       attributes: ['id', 'email', 'passwordHash']
     })
       .then(user => {
-        if(user.passwordHash !== req.body.password) {
-          res.json({ result: "err", reason: "pass", err: new Error("Wrong password")});
+        if(!user) {
+          res.json({ status: "err", reason: "email", err: new Error("Wrong email")});
+        } if(user.passwordHash !== req.body.password) {
+          res.json({ status: "err", reason: "pass", err: new Error("Wrong password")});
         } else {
           req.session.userId = user.id;
           req.session.save();
-          res.json({ result: "ok" });
+          res.json({ status: "ok" });
         }
       })
-      //.catch(err => res.json({ result: "err", reason: "db", err: err}));
+      //.catch(err => res.json({ status: "err", reason: "db", err: err}));
   } else {
-    res.json({ result: "err", reason: "form", err: new Error("Email and password are requiered")});
+    res.json({ status: "err", reason: "form", err: new Error("Email and password are requiered")});
   }
 });
 
