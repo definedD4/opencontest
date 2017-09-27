@@ -1,21 +1,18 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import  { Tabs, Tab } from 'react-bootstrap';
 
 import TaskViewer from './TaskViewer';
-import SolutionWorkspace from './solution/SolutionWorkspace';
 
-export default class TaskWorkspace extends Component {
-
+export default class SolutionWorkspace extends Component {
   render() {
     const { taskId } = this.props;
     return (
       <Tabs justified id="workspace-tabs" className="full-height-tabs">
         <Tab eventKey={1} title="Task">
-          <TaskViewer taskId={taskId}/>
+          <TaskViewer taskId={taskId} />
         </Tab>
         <Tab eventKey={2} title="Solution">
-          <SolutionWorkspace taskId={taskId}/>
+          <h1>My solution</h1>
         </Tab>
       </Tabs>
     );
