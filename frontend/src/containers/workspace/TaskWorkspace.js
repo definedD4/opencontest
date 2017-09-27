@@ -9,7 +9,7 @@ export default class TaskWorkspace extends Component {
   render() {
     const { taskId } = this.props;
     return (
-      <Tabs justified>
+      <Tabs justified id="workspace-tabs" className="full-height-tabs">
         <Tab eventKey={1} title="Task">
           <TaskViewer taskId={taskId}/>
         </Tab>

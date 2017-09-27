@@ -4,7 +4,8 @@ export {
   login,
   logout,
   user,
-  err
+  err,
+  fetchAuth
 };
 
 var state = {
@@ -43,7 +44,7 @@ function err() {
   return state.err;
 }
 
-function fetchCurrentState() {
+function fetchAuth() {
   return api.user.current()
     .then(user => ({ user: user, err: null }))
     .catch(err => ({ user: null, err: err }))
@@ -53,4 +54,4 @@ function fetchCurrentState() {
     });
 }
 
-fetchCurrentState();
+fetchAuth();
