@@ -6,7 +6,9 @@ export default class TaskViewer extends Component {
   render() {
     const { taskId } = this.props;
     return (
-      <iframe src={`/api/task/${taskId}/html`}/>
+      <iframe 
+        src={`/api/task/${taskId}/html`}
+        style={{ width: '100%', height: '100%', frameBorder: 0 }}/>
     );
   }
 }
