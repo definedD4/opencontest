@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
+import  { Tabs, Tab } from 'react-bootstrap';
 
 import TaskViewer from './TaskViewer';
 
@@ -8,7 +9,14 @@ export default class TaskWorkspace extends Component {
   render() {
     const { taskId } = this.props;
     return (
-      <TaskViewer taskId={taskId}/>
+      <Tabs justified>
+        <Tab eventKey={1} title="Task">
+          <TaskViewer taskId={taskId}/>
+        </Tab>
+        <Tab eventKey={2} title="Solution">
+          <h1>My solution</h1>
+        </Tab>
+      </Tabs>
     );
   }
 }

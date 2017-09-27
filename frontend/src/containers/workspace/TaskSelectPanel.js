@@ -12,7 +12,7 @@ export default class TaskSelectPanel extends Component {
   render() {
     const { title, tasks, selectedId, onSelect } = this.props;
     return (
-      <Nav bsStyle="tabs" activeKey={selectedId} onSelect={id => this.handleSelect(id)}>
+      <Nav bsStyle="pills" activeKey={selectedId} onSelect={id => this.handleSelect(id)}>
         <NavItem disabled><bold>{title}</bold></NavItem>
         {tasks.map(task => (
           <NavItem key={task.id} eventKey={task.id}>{task.name}</NavItem>

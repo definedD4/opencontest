@@ -37,7 +37,7 @@ export default class Workspace extends Component {
     }
 
     return (
-      <div style={{ position: 'fixed', top: '0px', bottom: '0px', left: '0px', right: '0px', height: '100%' }}>
+      <div>
         <Navbar />
         <TaskSelectPanel
           title={contest.name}
