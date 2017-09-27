@@ -5,6 +5,7 @@ module.exports = (sequelize, DataTypes) => {
   });
   Task.associate = function(models) {
     Task.belongsTo(models.Contest);
+    Task.hasMany(models.Solution);
   };
   return Task;
 };

@@ -3,8 +3,25 @@ var router = express.Router();
 
 const path = require('path');
 
-router.get('/:id/html', function(req, res) {
+const models = require('../models');
+
+router.get('/:id/html', function (req, res) {
   res.sendFile(path.join(__dirname, '../storage/tasks/', `${req.params.id}.html`));
 });
+
+router.get('/:id/', function (req, res) {
+  if (!req.session.userId) {
+    res.json({ status: "err", reason: "auth" });
+    return;
+  }
+
+  models.Task.findById(req.params.id, {
+    attributes: ["name"],
+    include: { model: models.Solution, attributes: ["id", "lang", "createdAt"] }
+  })
+    .then(task => {
+      res.json({ status: "ok", task });
+    });
+})
 
 module.exports = router;
