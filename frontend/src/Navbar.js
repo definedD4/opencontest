@@ -26,7 +26,7 @@ export default class Navbar extends Component {
           </Nvbar.Brand>
         </Nvbar.Header>
         <Nav>
-          <LinkNavItem to="/">Contests</LinkNavItem>
+          <LinkNavItem to="/contest">Contests</LinkNavItem>
         </Nav>
         <Nvbar.Text pullRight>
           Signed in as: {user().displayName}

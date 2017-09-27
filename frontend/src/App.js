@@ -2,10 +2,10 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import Navbar from './Navbar';
 import { PageHeader } from 'react-bootstrap';
-import { BrowserRouter, Route, Link, Redirect } from 'react-router-dom';
+import { BrowserRouter, Route, Switch, Link, Redirect } from 'react-router-dom';
 import { StyleRoot } from 'radium';
 
-import { user } from './auth.js';
+import { user } from './auth';
 import Login from './containers/auth/Login';
 import ContestList from './containers/ContestList';
 import Workspace from './containers/workspace/Workspace';
@@ -16,7 +16,7 @@ class App extends Component {
       <div>
         <PageHeader className="text-center">Welcome!</PageHeader>
         <h4 className="text-center">Please sign in below or <Link to="/register">register</Link> to continue.</h4>
-        <Login />
+        <Login redirectOnSuccess="/contest"/>
       </div>
     );
 
@@ -35,11 +35,12 @@ class App extends Component {
     return (
       <StyleRoot>
         <BrowserRouter>
-          <div>
+          <Switch>
             <Route path="/login" exact component={LoginSection} />
-            <PrivateRoute path="/" exact component={PrivateSection} />
+            <PrivateRoute path="/contest" exact component={PrivateSection} />
             <PrivateRoute path="/contest/:id" exact component={({ match }) => <Workspace contestId={+match.params.id}/>} />
-          </div>
+            <Route render={props => <Redirect to="/login"/>}/>
+          </Switch>
         </BrowserRouter>
       </StyleRoot>
     );
