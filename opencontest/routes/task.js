@@ -10,6 +10,8 @@ router.get('/:id/html', function (req, res) {
 });
 
 router.get('/:id/', function (req, res) {
+  console.log(req.session.userId);
+
   if (!req.session.userId) {
     res.json({ status: "err", reason: "auth" });
     return;

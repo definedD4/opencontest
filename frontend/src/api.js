@@ -48,7 +48,9 @@ module.exports = {
   },
   contest: {
     all: function() {
-      return fetch("/api/contest/")
+      return fetch("/api/contest/", {
+        credentials: "same-origin"
+      })
         .then(res => res.json())
         .then(res => {
           if(res.status === "ok") {
@@ -59,7 +61,9 @@ module.exports = {
         });
     }, 
     byId: function(id) {
-      return fetch(`/api/contest/${id}`)
+    return fetch(`/api/contest/${id}`, {
+      credentials: "same-origin"
+    })
         .then(res => res.json())
         .then(res => {
           if(res.status === "ok") {
@@ -72,7 +76,9 @@ module.exports = {
   },
   task: {
     byId: function(id) {
-      return fetch(`/api/task/${id}`)
+      return fetch(`/api/task/${id}`, {
+        credentials: "same-origin"
+      })
         .then(res => res.json())
         .then(res => {
           if(res.status === "ok") {
