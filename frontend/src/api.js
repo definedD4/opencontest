@@ -69,5 +69,18 @@ module.exports = {
           }
         });
     }
+  },
+  task: {
+    byId: function(id) {
+      return fetch(`/api/task/${id}`)
+        .then(res => res.json())
+        .then(res => {
+          if(res.status === "ok") {
+            return res.task;
+          } else {
+            throw res.err;
+          }
+        });
+    }
   }
 }

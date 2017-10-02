@@ -17,7 +17,11 @@ router.get('/:id/', function (req, res) {
 
   models.Task.findById(req.params.id, {
     attributes: ["name"],
-    include: { model: models.Solution, attributes: ["id", "lang", "createdAt"] }
+    include: { 
+      model: models.Solution,
+      attributes: ["id", "lang", "createdAt"],
+      where: { userId: req.session.userId }
+    }
   })
     .then(task => {
       res.json({ status: "ok", task });

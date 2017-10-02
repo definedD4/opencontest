@@ -6,9 +6,14 @@ export default class SolutionWorkspace extends Component {
     super();
 
     this.state = {
-      
+      solutions: [],
     }
   }
+
+  componentDidMount() {
+    
+  }
+
   render() {
     return (
       <p>123</p>
