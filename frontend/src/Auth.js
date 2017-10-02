@@ -11,7 +11,7 @@ export {
 var state = {
   user: null,
   err: null,
-};
+}; 
 
 function login(email, password) {
   return api.user.login(email, password)

@@ -1,8 +1,6 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 
-import TaskViewer from './TaskViewer';
-
 export default class SolutionWorkspace extends Component {
   constructor() {
     super();
@@ -13,11 +11,11 @@ export default class SolutionWorkspace extends Component {
   }
   render() {
     return (
-      
+      <p>123</p>
     );
   }
 }
 
-TaskWorkspace.propTypes = {
+SolutionWorkspace.propTypes = {
   taskId: PropTypes.number,
 };
